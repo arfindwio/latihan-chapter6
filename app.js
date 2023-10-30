@@ -13,6 +13,9 @@ app.use("/images", express.static("public/images"));
 app.use("/videos", express.static("public/videos"));
 app.use("/documents", express.static("public/documents"));
 
+app.get("/", (req, res) => {
+  res.send("hello world!");
+});
 app.use("/", router);
 
 app.listen(PORT, () => console.log("listening on port", PORT));
