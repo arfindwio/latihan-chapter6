@@ -11,10 +11,11 @@ datasource db {
 }
 
 model User {
-  id          Int          @id @default(autoincrement())
-  email       String       @unique
-  password    String
-  userProfile UserProfile?
+  id           Int             @id @default(autoincrement())
+  email        String          @unique
+  password     String
+  userProfile  UserProfile?
+  bank_account bank_accounts[]
 }
 
 model UserProfile {
@@ -25,4 +26,13 @@ model UserProfile {
   profile_picture String?
   userId          Int     @unique
   user            User    @relation(fields: [userId], references: [id])
+}
+
+model bank_accounts {
+  id                  Int    @id @default(autoincrement())
+  bank_name           String
+  bank_account_number String
+  balance             Int
+  userId              Int
+  user                User   @relation(fields: [userId], references: [id])
 }
