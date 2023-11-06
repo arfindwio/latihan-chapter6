@@ -4,7 +4,7 @@ const app = express();
 const morgan = require("morgan");
 const Sentry = require("@sentry/node");
 const router = require("./routes");
-const { PORT = 3000, SENTRY_DSN, ENV } = process.env;
+const { PORT = 3000, SENTRY_DSN, RAILWAY_ENVIRONMENT_NAME } = process.env;
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -16,7 +16,7 @@ Sentry.init({
   ],
   // Performance Monitoring
   tracesSampleRate: 1.0,
-  environment: ENV,
+  environment: RAILWAY_ENVIRONMENT_NAME,
 });
 
 app.use(morgan("dev"));
@@ -57,6 +57,7 @@ app.use((req, res, next) => {
   res.status(500).json({
     status: false,
     message: "internal server error",
+    error: null,
     data: null,
   });
 });
